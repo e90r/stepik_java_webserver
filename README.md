@@ -1,2 +1,2 @@
-# stepic_java_webserver
-Примеры Java кода для курса "Изучение Java и фронтенд на примере разработки веб сервиса" на https://stepic.org/
+# stepik_java_webserver
+Repository for solutions of "Java Web Service Development" course on stepik.org
