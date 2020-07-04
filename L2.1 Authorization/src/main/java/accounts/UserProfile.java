@@ -12,10 +12,10 @@ public class UserProfile {
     private final String pass;
     private final String email;
 
-    public UserProfile(String login, String pass, String email) {
+    public UserProfile(String login, String pass) {
         this.login = login;
         this.pass = pass;
-        this.email = email;
+        this.email = login;
     }
 
     public UserProfile(String login) {
