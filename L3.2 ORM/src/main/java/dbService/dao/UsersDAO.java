@@ -25,12 +25,12 @@ public class UsersDAO {
         return (UsersDataSet) session.get(UsersDataSet.class, id);
     }
 
-    public long getUserId(String name) throws HibernateException {
+    public UsersDataSet getUserByLogin(String name) throws HibernateException {
         Criteria criteria = session.createCriteria(UsersDataSet.class);
-        return ((UsersDataSet) criteria.add(Restrictions.eq("name", name)).uniqueResult()).getId();
+        return ((UsersDataSet) criteria.add(Restrictions.eq("login", name)).uniqueResult());
     }
 
-    public long insertUser(String name) throws HibernateException {
-        return (Long) session.save(new UsersDataSet(name));
+    public long insertUser(String name, String password) throws HibernateException {
+        return (Long) session.save(new UsersDataSet(name, password));
     }
 }
