@@ -17,14 +17,16 @@ import java.sql.SQLException;
  */
 public class DBService {
     private final Connection connection;
+    private final UsersDAO dao;
 
     public DBService() {
         this.connection = getH2Connection();
+        this.dao = new UsersDAO(connection);
     }
 
     public UsersDataSet getUser(long id) throws DBException {
         try {
-            return (new UsersDAO(connection).get(id));
+            return (dao.get(id));
         } catch (SQLException e) {
             throw new DBException(e);
         }
@@ -32,7 +34,6 @@ public class DBService {
 
     public UsersDataSet getUserByLogin(String login) throws DBException {
         try {
-            UsersDAO dao = new UsersDAO(connection);
             return dao.get(dao.getUserId(login));
         } catch (SQLException e) {
             throw new DBException(e);
@@ -42,7 +43,6 @@ public class DBService {
     public long addUser(String name, String pass) throws DBException {
         try {
             connection.setAutoCommit(false);
-            UsersDAO dao = new UsersDAO(connection);
             dao.createTable();
             dao.insertUser(name, pass);
             connection.commit();
@@ -62,7 +62,6 @@ public class DBService {
     }
 
     public void cleanUp() throws DBException {
-        UsersDAO dao = new UsersDAO(connection);
         try {
             dao.dropTable();
         } catch (SQLException e) {

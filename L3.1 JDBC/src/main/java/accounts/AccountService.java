@@ -15,18 +15,19 @@ import java.util.Map;
  *         Описание курса и лицензия: https://github.com/vitaly-chibrikov/stepic_java_webserver
  */
 public class AccountService {
-    private final Map<String, UsersDataSet> loginToProfile;
-    private final Map<String, UsersDataSet> sessionIdToProfile;
+//    private final Map<String, UsersDataSet> loginToProfile;
+//    private final Map<String, UsersDataSet> sessionIdToProfile;
+    private final DBService dbService;
 
     public AccountService() {
-        loginToProfile = new HashMap<>();
-        sessionIdToProfile = new HashMap<>();
+//        loginToProfile = new HashMap<>();
+//        sessionIdToProfile = new HashMap<>();
+        dbService = new DBService();
     }
 
     public void addNewUser(String login, String password) {
         //loginToProfile.put(usersDataSet.getLogin(), usersDataSet);
 
-        DBService dbService = new DBService();
         dbService.printConnectInfo();
         try {
             long userId = dbService.addUser(login, password);
@@ -41,7 +42,7 @@ public class AccountService {
 
     public UsersDataSet getUserByLogin(String login) {
         //return loginToProfile.get(login);
-        DBService dbService = new DBService();
+
         dbService.printConnectInfo();
 
         UsersDataSet user = null;
