@@ -30,12 +30,21 @@ public class DBService {
         }
     }
 
-    public long addUser(String name) throws DBException {
+    public UsersDataSet getUserByLogin(String login) throws DBException {
+        try {
+            UsersDAO dao = new UsersDAO(connection);
+            return dao.get(dao.getUserId(login));
+        } catch (SQLException e) {
+            throw new DBException(e);
+        }
+    }
+
+    public long addUser(String name, String pass) throws DBException {
         try {
             connection.setAutoCommit(false);
             UsersDAO dao = new UsersDAO(connection);
             dao.createTable();
-            dao.insertUser(name);
+            dao.insertUser(name, pass);
             connection.commit();
             return dao.getUserId(name);
         } catch (SQLException e) {
@@ -100,8 +109,8 @@ public class DBService {
     public static Connection getH2Connection() {
         try {
             String url = "jdbc:h2:./h2db";
-            String name = "tully";
-            String pass = "tully";
+            String name = "test";
+            String pass = "test";
 
             JdbcDataSource ds = new JdbcDataSource();
             ds.setURL(url);
